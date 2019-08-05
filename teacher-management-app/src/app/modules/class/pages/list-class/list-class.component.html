@@ -1,0 +1,25 @@
+<ng-container *ngIf="loading">Loading...</ng-container>
+<ng-container *ngIf="!loading">
+<button type="button" class="btn btn-info" (click)="addClass()">Add class</button>
+<h6>Number of classes: {{classCount}}</h6>
+<ng-container *ngIf="classCount !== 0">
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th style="width: 5%" scope="col">Class No.</th>
+      <th style="width: 30%" scope="col">Name</th>
+      <th style="width: 60%" scope="col">Description</th>
+      <th style="width: 5%" scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let class of classes">
+      <th scope="row">1</th>
+      <td><span class="link" (click)="editClass(class._id)">{{class.name}}</span></td>
+      <td>{{class.description}}</td>
+      <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+    </tr>
+  </tbody>
+</table>
+</ng-container>
+</ng-container>
