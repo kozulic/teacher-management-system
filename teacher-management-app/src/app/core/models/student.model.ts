@@ -6,6 +6,11 @@ export interface Student extends StudentList {
   birthDate: Date;
   sex: string;
   globalNote: string;
+  class: string;
+  contacts: string[];
+  grades: string[];
+  notes: string[];
+  absences: string[];
 }
 
 export interface StudentList extends StudentBase {

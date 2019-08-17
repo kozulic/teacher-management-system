@@ -1,3 +1,51 @@
-<p>
-  list-student works!
-</p>
+<ng-container *ngIf="loading">Loading...</ng-container>
+<ng-container *ngIf="!loading">
+  <button type="button" class="btn btn-info" (click)="addStudent()">Add student</button>
+  <h6>Number of students: {{studentCount}}</h6>
+  <div class="box">
+  <ng-container *ngIf="class">
+    <div class="card bg-light mb-3 class-info">
+      <div class="card-header">{{class.name}}</div>
+      <div class="card-body">
+        <p class="card-text">{{class.description}}</p>
+      </div>
+      <div class="card-footer">
+        <ul class="list-group">
+          <li *ngFor="let subject of class.subjects;" class="list-group-item">{{subject}}</li>
+        </ul>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="studentCount !== 0">
+    <table class="table table-bordered student-table">
+      <thead>
+        <tr>
+          <th style="width: 3%" scope="col">No.</th>
+          <th style="width: 30%" scope="col">Name</th>
+          <th style="width: 62%" scope="col">Email</th>
+          <th style="width: 5%" scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students; let i=index">
+          <th scope="row">{{i+1}}</th>
+          <td><a [routerLink]="['/student', student._id]">{{student.firstName}} {{student.lastName}}</a></td>
+          <td>{{student.email}}</td>
+          <td><div class="btn-group dropleft">
+            <button class="btn btn-info  btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              More
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" (click)="editStudent(student._id)">Edit</a>
+              <a class="dropdown-item" (click)="deleteStudent(student._id)">Delete</a>
+            </div>
+          </div></td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+  </div>
+  <ng-container *ngIf="studentCount === 0">
+    <h1>No students in class yet.</h1>
+  </ng-container>
+</ng-container>

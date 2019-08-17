@@ -17,11 +17,11 @@ export class ClassService {
     return this.http.get<ClassList[]>(`${environment.api_url}/class/teacher/${teacherId}`);
   }
 
-  public getSubjects(classId): Observable<Subject> {
+  public getSubjects(classId: string): Observable<Subject> {
     return this.http.get<Subject>(`${environment.api_url}/class/${classId}/subjects`);
   }
 
-  public getClass(classId): Observable<Class> {
+  public getClass(classId: string): Observable<Class> {
     return this.http.get<Class>(`${environment.api_url}/class/${classId}`);
   }
 
@@ -33,8 +33,8 @@ export class ClassService {
     return this.http.put<ClassEdit>(`${environment.api_url}/class/${classId}`, newClass);
   }
 
-  public deleteClass(classId: string): Observable<string> {
-    return this.http.delete<string>(`${environment.api_url}/class/${classId}`);
+  public deleteClass(classId: string): Observable<object> {
+    return this.http.delete<object>(`${environment.api_url}/class/${classId}`);
   }
 
 }

@@ -6,29 +6,29 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export abstract class ApiService<T, TBase, TEdit, ID> {
+export abstract class ApiService<T, TBase, ID> {
   constructor(
-    private http: HttpClient,
-    private baseUrl: string
+    protected http: HttpClient,
+    protected baseUrl: string
   ) { }
 
-  get(): Observable<T[]> {
-    return this.http.get<T[]>(this.baseUrl);
+  getAll(studentId: ID): Observable<TBase[]> {
+    return this.http.get<TBase[]>(`${this.baseUrl}/student/${studentId}`);
   }
 
-  getById(id: ID): Observable<TBase> {
-    return this.http.get<TBase>(`${this.baseUrl}/${id}`);
+  getById(id: ID): Observable<T> {
+    return this.http.get<T>(`${this.baseUrl}/${id}`);
   }
 
-  create(t: TEdit): Observable<TEdit> {
-    return this.http.post<TEdit>(this.baseUrl, t);
+  create(t: T): Observable<T> {
+    return this.http.post<T>(this.baseUrl, t);
   }
 
-  update(id: ID, t: TEdit): Observable<TEdit> {
-    return this.http.put<TEdit>(`${this.baseUrl}/${id}`, t);
+  update(id: ID, t: T): Observable<T> {
+    return this.http.put<T>(`${this.baseUrl}/${id}`, t);
   }
 
-  delete(id: ID): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/${id}`);
+  delete(id: ID): Observable<object> {
+    return this.http.delete<object>(`${this.baseUrl}/${id}`);
   }
 }

@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { NavigationComponent } from './layout/navigation/navigation.component';
 import { ClassModule } from './modules/class/class.module';
+import { StudentModule } from './modules/student/student.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ClassModule } from './modules/class/class.module';
     SharedModule,
     AuthModule,
     ClassModule,
+    StudentModule,
     AppRoutingModule
   ],
   providers: [],

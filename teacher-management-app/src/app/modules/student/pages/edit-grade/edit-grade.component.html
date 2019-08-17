@@ -1,0 +1,23 @@
+<h1 *ngIf="gradeId">Update grade</h1>
+<h1 *ngIf="!gradeId">Add grade</h1>
+<form [formGroup]="gradeForm" (ngSubmit)="onSubmit()" class="form-frame">
+    <div class="form-group">
+      <label for="subjectInput">Subject</label>
+      <input type="text" class="form-control" id="subjectInput" formControlName="subject" required>
+    </div>
+    <div class="form-group">
+      <label for="gradeSelect">Grade</label>
+      <select class="form-control" id="gradeSelect" formControlName="grade">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+      </div>
+    <div class="form-group">
+      <label for="noteTextarea">Note</label>
+      <textarea class="form-control" id="noteTextarea" rows="2" formControlName="note"></textarea>
+    </div>
+    <button type="submit" class="btn btn-info btn-block" [disabled]="!gradeForm.valid">Submit</button>
+  </form>

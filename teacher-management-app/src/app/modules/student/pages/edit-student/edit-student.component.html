@@ -1,0 +1,59 @@
+<h1 *ngIf="studentId">Update student</h1>
+<h1 *ngIf="!studentId">Add student</h1>
+<form [formGroup]="studentForm" (ngSubmit)="onSubmit()" class="form-frame">
+  <div class="form-group">
+    <label for="firstNameInput">First name</label>
+    <input type="text" class="form-control" id="firstNameInput" formControlName="firstName" required>
+  </div>
+  <div class="form-group">
+    <label for="lastNameInput">Last name</label>
+    <input type="text" class="form-control" id="lastNameInput" formControlName="lastName" required>
+  </div>
+  <div class="form-group">
+    <label for="emailInput">Email address</label>
+    <input type="email" class="form-control" id="emailInput" formControlName="email" required>
+  </div>
+  <div class="form-group">
+    <label for="phoneNumberInput">Phone number</label>
+    <input type="number" class="form-control" id="phoneNumberInput" formControlName="phoneNumber" required>
+  </div>
+  <div formGroupName="address">
+    <h3>Address</h3>
+    <div class="form-row">
+      <div class="form-group col-md-8">
+        <label for="inputStreet">Street</label>
+        <input type="text" class="form-control" id="inputStreet" formControlName="street" required>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputStreetNum">Street number</label>
+        <input type="number" class="form-control" id="inputStreetNum" formControlName="streetNum" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputZipNum">ZIP number</label>
+        <input type="number" class="form-control" id="inputZipNum" formControlName="zipNum" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputCity">City</label>
+        <input type="text" class="form-control" id="inputCity" formControlName="city" required>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="birthDateInput">Birth date</label>
+    <input type="date" class="form-control" id="birthDateInput" formControlName="birthDate" required>
+  </div>
+  <div class="form-group">
+    <label for="sexSelect">Sex</label>
+    <select class="form-control" id="sexSelect" formControlName="sex">
+      <option>Male</option>
+      <option>Female</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="globalNoteTextarea">Global note</label>
+    <textarea class="form-control" id="globalNoteTextarea" rows="3" formControlName="globalNote"></textarea>
+  </div>
+  <button type="submit" class="btn btn-info btn-block" [disabled]="!studentForm.valid">Submit</button>
+</form>
