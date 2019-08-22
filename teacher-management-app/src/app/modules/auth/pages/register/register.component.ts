@@ -50,7 +50,8 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/']);
         },
         error => {
-          this.alertService.error(error);
+          this.alertService.error('Email already used. Try with another one.');
+          this.registerForm.reset();
           this.loading = false;
         }
       );

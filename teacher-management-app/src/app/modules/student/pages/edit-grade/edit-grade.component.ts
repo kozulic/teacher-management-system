@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { first } from 'rxjs/operators';
+
 import { Grade } from 'src/app/core/models/grade.model';
 import { GradeService } from 'src/app/core/services/grade.service';
-import { first } from 'rxjs/operators';
 import { AlertService } from 'src/app/core/services/alert.service';
+import { ClassService } from 'src/app/core/services/class.service';
+import { Subject } from 'src/app/core/models/class.model';
 
 @Component({
   selector: 'app-edit-grade',
@@ -18,13 +21,16 @@ export class EditGradeComponent implements OnInit {
   gradeForm: FormGroup;
   studentId: string;
   gradeId: string;
+  studentClassId: string;
+  classSujects: string[];
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private gradeService: GradeService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private classService: ClassService
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +46,10 @@ export class EditGradeComponent implements OnInit {
     };
 
     this.route.queryParams.subscribe(params => {
+      if (params.studentClass) {
+        this.studentClassId = params.studentClass;
+        this.getClassSubjects();
+      }
       if (params.gradeId) {
         this.gradeId = params.gradeId;
         this.getGrade();
@@ -112,6 +122,16 @@ export class EditGradeComponent implements OnInit {
           note: this.grade.note
         });
 
+        this.loading = false;
+      });
+  }
+
+  private getClassSubjects(): void {
+    this.loading = true;
+    this.classService.getSubjects(this.studentClassId)
+      .pipe()
+      .subscribe((response: Subject) => {
+        this.classSujects = [ ...response.subjects ];
         this.loading = false;
       });
   }

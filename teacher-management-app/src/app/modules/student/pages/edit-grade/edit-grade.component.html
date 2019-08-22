@@ -1,6 +1,14 @@
 <h1 *ngIf="gradeId">Update grade</h1>
 <h1 *ngIf="!gradeId">Add grade</h1>
 <form [formGroup]="gradeForm" (ngSubmit)="onSubmit()" class="form-frame">
+  <!--  
+  <div class="form-group">
+      <label for="subjectInput">Subject</label>
+      <select class="form-control" id="subjectInput" formControlName="subject">
+        <option *ngFor="let subject of classSubjects">{{subject}}</option>
+      </select>
+    </div>
+    -->
     <div class="form-group">
       <label for="subjectInput">Subject</label>
       <input type="text" class="form-control" id="subjectInput" formControlName="subject" required>

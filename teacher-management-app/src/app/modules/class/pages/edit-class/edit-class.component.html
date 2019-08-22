@@ -8,12 +8,11 @@
     <label for="descriptionInput">Description</label>
     <textarea class="form-control" id="descriptionInput" formControlName="description" rows="3"></textarea>
   </div>
-  <div formArrayName="subjects">
+  <div formArrayName="subjects" *ngIf="!classId">
     <h5>Subjects</h5> 
     <button type="button" (click)="addSubject()" class="btn btn-info btn-sm">Add subject</button>
     <div *ngFor="let subject of subjects.controls; let i=index">
       <label>
-        Subject:
         <input class="form-control form-control-sm" type="text" [formControlName]="i">
       </label>
     </div>

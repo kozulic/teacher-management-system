@@ -48,7 +48,14 @@ export class DetailsStudentComponent implements OnInit {
   }
 
   private addGrade(): void {
-    this.router.navigate(['student', this.studentId, 'grade']);
+    console.log(this.student);
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+        studentClass: this.student.class
+      }
+    };
+
+    this.router.navigate(['student', this.studentId, 'grade'], navigationExtras);
   }
 
   private addAbsence(): void {
@@ -106,7 +113,8 @@ export class DetailsStudentComponent implements OnInit {
   private editGrade(gradeId: string): void {
     const navigationExtras: NavigationExtras = {
       queryParams: {
-        gradeId
+        gradeId,
+        studentClass: this.student.class
       }
     };
     this.router.navigate(['student', this.studentId, 'grade'], navigationExtras);

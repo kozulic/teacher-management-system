@@ -6,7 +6,7 @@ import { first } from 'rxjs/operators';
 
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ClassService } from 'src/app/core/services/class.service';
-import { ClassEdit } from 'src/app/core/models/class.model';
+import { ClassEdit, Class } from 'src/app/core/models/class.model';
 import { AuthTeacher } from 'src/app/core/models/auth-teacher.model';
 import { AlertService } from 'src/app/core/services/alert.service';
 
@@ -17,8 +17,9 @@ import { AlertService } from 'src/app/core/services/alert.service';
   styleUrls: ['./edit-class.component.scss']
 })
 export class EditClassComponent implements OnInit {
-  classForm: FormGroup;
   loading = false;
+  class: ClassEdit;
+  classForm: FormGroup;
   teacherId: string;
   classId: string;
 
@@ -31,22 +32,31 @@ export class EditClassComponent implements OnInit {
     private alertService: AlertService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.authService.teacher.subscribe((teacher: AuthTeacher) => this.teacherId = teacher.teacher._id);
+
+    this.class = {
+      _id: null,
+      owner: this.teacherId,
+      name: '',
+      description: '',
+      subjects: []
+    };
+
     this.route.queryParams.subscribe(params => {
       if (params.classId) {
-        console.log(params.classId);
+        this.classId = params.classId;
+        this.getClass();
       }
     });
 
     this.classForm = this.fb.group({
-      name: ['', Validators.required],
-      description: [''],
+      name: [this.class.name, Validators.required],
+      description: [this.class.description, ''],
       subjects: this.fb.array([
         this.fb.control('')
       ])
     });
-
-    this.authService.teacher.subscribe((teacher: AuthTeacher) => this.teacherId = teacher.teacher._id);
   }
 
   get subjects() {
@@ -59,15 +69,20 @@ export class EditClassComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    const classData: ClassEdit = {
-      _id: null,
-      name: this.classForm.controls['name'].value,
-      description: this.classForm.controls['description'].value,
-      subjects: this.classForm.controls['subjects'].value,
-      owner: this.teacherId
-    };
 
-    this.classService.createClass(classData)
+    this.class.name = this.classForm.controls['name'].value;
+    this.class.description = this.classForm.controls['description'].value;
+    this.class.owner = this.teacherId;
+
+    if (this.classId) {
+      this.editClass();
+    } else {
+      this.addClass();
+    }
+  }
+
+  private addClass(): void {
+    this.classService.createClass(this.class)
       .pipe(first())
       .subscribe(
         () => {
@@ -78,6 +93,40 @@ export class EditClassComponent implements OnInit {
           this.loading = false;
         }
       );
+  }
+
+  private editClass(): void {
+    this.classService.updateClass(this.class, this.classId)
+      .pipe(first())
+      .subscribe(
+        () => {
+          this.router.navigate(['/']);
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+        }
+      );
+  }
+
+  private getClass(): void {
+    this.loading = true;
+    this.classService.getClass(this.classId)
+      .pipe()
+      .subscribe((classDetails: Class) => {
+        // Map values
+        this.class._id = classDetails._id;
+        this.class.name = classDetails.name;
+        this.class.description = classDetails.description;
+        this.class.subjects = classDetails.subjects;
+
+        this.classForm.patchValue({
+          name: this.class.name,
+          description: this.class.description
+        });
+
+        this.loading = false;
+      });
   }
 
 }

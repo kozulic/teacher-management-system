@@ -13,12 +13,12 @@
         <h3>Grades</h3>
         <button type="button" class="btn btn-info" (click)="addGrade()">Add grade</button>
       </div>
-      <table class="table table-bordered">
+      <table class="table table-bordered table-sm">
         <thead>
           <tr>
             <th style="width: 3%" scope="col">No.</th>
-            <th style="width: 30%" scope="col">Subject</th>
-            <th style="width: 62%" scope="col">Grade</th>
+            <th style="width: 82%" scope="col">Subject</th>
+            <th style="width: 10%" scope="col">Grade</th>
             <th style="width: 5%" scope="col">Actions</th>
           </tr>
         </thead>
@@ -42,16 +42,17 @@
     </div>
     </ng-container>
     <ng-container *ngIf="!loading && absences.length > 0" class="content-container">
-      <div class="div-nav">
+      <div class="row-ver">
+      <div class="div-nav div-left">
         <h3>Absences</h3>
         <button type="button" class="btn btn-info" (click)="addAbsence()">Add absence</button>
       </div>
-      <table class="table table-bordered">
+      <table class="table table-bordered table-sm">
         <thead>
           <tr>
             <th style="width: 3%" scope="col">No.</th>
-            <th style="width: 30%" scope="col">Reason</th>
-            <th style="width: 62%" scope="col">Hours</th>
+            <th style="width: 82%" scope="col">Reason</th>
+            <th style="width: 10%" scope="col">Hours</th>
             <th style="width: 5%" scope="col">Actions</th>
           </tr>
         </thead>
@@ -72,6 +73,7 @@
           </tr>
         </tbody>
       </table>
+    </div>
     </ng-container>
     <ng-container *ngIf="!loading && grades.length === 0">
       <div class="div-nav">
@@ -80,7 +82,7 @@
       </div>
     </ng-container>
     <ng-container *ngIf="!loading && absences.length === 0">
-      <div class="div-nav">
+      <div class="div-nav div-left">
         <h3>No absences yet.</h3>
         <button type="button" class="btn btn-info" (click)="addAbsence()">Add absence</button>
         </div>
@@ -95,14 +97,14 @@
         <h3>Contacts</h3>
         <button type="button" class="btn btn-info" (click)="addContact()">Add contact</button>
       </div>
-      <table class="table table-bordered">
+      <table class="table table-bordered table-sm">
         <thead>
           <tr>
             <th style="width: 3%" scope="col">No.</th>
             <th style="width: 30%" scope="col">Name</th>
             <th style="width: 25%" scope="col">Email</th>
-            <th style="width: 30%" scope="col">Phone number</th>
-            <th style="width: 7%" scope="col">Relation</th>
+            <th style="width: 27%" scope="col">Phone number</th>
+            <th style="width: 10%" scope="col">Relation</th>
             <th style="width: 5%" scope="col">Actions</th>
           </tr>
         </thead>
@@ -128,16 +130,17 @@
         </div>
     </ng-container>
     <ng-container *ngIf="!loading && notes.length > 0" class="content-container">
+      <div class="row-ver">
       <div class="div-nav">
         <h3>Notes</h3>
         <button type="button" class="btn btn-info" (click)="addNote()">Add note</button>
         </div>
-      <table class="table table-bordered">
+      <table class="table table-bordered table-sm">
         <thead>
           <tr>
             <th style="width: 3%" scope="col">No.</th>
-            <th style="width: 30%" scope="col">Text</th>
-            <th style="width: 62%" scope="col">Date</th>
+            <th style="width: 52%" scope="col">Text</th>
+            <th style="width: 40%" scope="col">Date</th>
             <th style="width: 5%" scope="col">Actions</th>
           </tr>
         </thead>
@@ -145,7 +148,7 @@
           <tr *ngFor="let note of notes; let i=index">
             <th scope="row">{{i+1}}</th>
             <td>{{note.text}}</td>
-            <td>{{note.date}}</td>
+            <td>{{note.date | date }}</td>
             <td><div class="btn-group dropleft">
               <button class="btn btn-info  btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 More
@@ -158,6 +161,7 @@
           </tr>
         </tbody>
       </table>
+      </div>
     </ng-container>
     <ng-container *ngIf="!loading && contacts.length === 0">
       <div class="div-nav">
@@ -166,7 +170,7 @@
       </div>
     </ng-container>
     <ng-container *ngIf="!loading && notes.length === 0">
-      <div class="div-nav">
+      <div class="div-nav div-left">
         <h3>No notes yet.</h3>
         <button type="button" class="btn btn-info" (click)="addNote()">Add note</button>
       </div>

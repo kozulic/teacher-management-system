@@ -1,16 +1,19 @@
 <ng-container *ngIf="loading">Loading...</ng-container>
 <ng-container *ngIf="!loading">
-  <button type="button" class="btn btn-info" (click)="addStudent()">Add student</button>
-  <h6>Number of students: {{studentCount}}</h6>
+  <div class="top-div">
+    <button type="button" class="btn btn-info btn-add" (click)="addStudent()">Add student</button>
+    <h6>Number of students: {{studentCount}}</h6>
+  </div>
   <div class="box">
   <ng-container *ngIf="class">
     <div class="card bg-light mb-3 class-info">
-      <div class="card-header">{{class.name}}</div>
+      <div class="card-header">Class: <b>{{class.name}}</b></div>
       <div class="card-body">
-        <p class="card-text">{{class.description}}</p>
+        <p class="card-text">Description: <em>{{class.description}}</em></p>
       </div>
       <div class="card-footer">
-        <ul class="list-group">
+        <p class="card-text">Subjects:</p>
+        <ul class="list-group list-group-flush">
           <li *ngFor="let subject of class.subjects;" class="list-group-item">{{subject}}</li>
         </ul>
       </div>
