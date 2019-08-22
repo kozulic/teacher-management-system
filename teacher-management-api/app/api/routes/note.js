@@ -5,6 +5,7 @@ const { noteController } = require('../controllers');
 const router = express.Router();
 
 router.get('/student/:studentId', noteController.getAll);
+router.get('/:id', noteController.get);
 router.post('/', noteController.create);
 router.put('/:id', noteController.update);
 router.delete('/:id', noteController.remove);

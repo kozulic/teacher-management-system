@@ -5,7 +5,7 @@ const getAll = async (studentId) => {
     return await Grade.find({ student: studentId },
       'subject grade');
   } catch (err) {
-    console.error(err.message);
+    throw new Error(err.message);
   }
 };
 
@@ -14,7 +14,7 @@ const get = async (gradeId) => {
     return await Grade.findById(gradeId,
       'subject grade date note student');
   } catch (err) {
-    console.error(err.message);
+    throw new Error(err.message);
   }
 };
 
@@ -22,7 +22,7 @@ const create = async (body) => {
   try {
     return await Grade.create(body);
   } catch (err) {
-    console.error(err.message);
+    throw new Error(err.message);
   }
 };
 
@@ -30,7 +30,7 @@ const update = async (gradeId, body) => {
   try {
     return await Grade.findByIdAndUpdate(gradeId, body);
   } catch (err) {
-    console.error(err.message);
+    throw new Error(err.message);
   }
 };
 
@@ -38,7 +38,7 @@ const remove = async (gradeId) => {
   try {
     await Grade.findByIdAndRemove(gradeId);
   } catch (err) {
-    console.error(err.message);
+    throw new Error(err.message);
   }
 };
 

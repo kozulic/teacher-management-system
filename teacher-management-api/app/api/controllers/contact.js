@@ -5,7 +5,6 @@ const getAll = async (req, res) => {
     const contacts = await contactService.getAll(req.params.studentId);
     res.json(contacts);
   } catch (err) {
-    console.error(err.message);
     res.status(400).json({error: err.message});
   }
 };
@@ -15,7 +14,6 @@ const get = async (req, res) => {
     const result = await contactService.get(req.params.id);
     res.json(result);
   } catch (err) {
-    console.error(err.message);
     res.status(400).json({error: err.message});
   }
 };
@@ -25,7 +23,6 @@ const create = async (req, res) => {
     const result = await contactService.create(req.body);
     res.json(result);
   } catch (err) {
-    console.error(err.message);
     res.status(400).json({error: err.message});
   }
 };
@@ -35,7 +32,6 @@ const update = async (req, res) => {
     const result = await contactService.update(req.params.id, req.body);
     res.json(result);
   } catch (err) {
-    console.error(err.message);
     res.status(400).json({error: err.message});
   }
 };
@@ -45,7 +41,6 @@ const remove = async (req, res) => {
     await contactService.remove(req.params.id);
     res.json({message: 'Contact removed!'});
   } catch (err) {
-    console.error(err.message);
     res.status(400).json({error: err.message});
   }
 };

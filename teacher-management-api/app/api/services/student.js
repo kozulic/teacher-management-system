@@ -5,16 +5,16 @@ const getAll = async (classId) => {
     return await Student.find({ class: classId },
       'firstName lastName email');
   } catch (err) {
-    console.error(err.message);
+    throw new Error(err.message);
   }
 };
 
 const get = async (studentId) => {
   try {
     return await Student.findById(studentId,
-      'firstName lastName email phoneNumber address birthDate sex globalNote');
+      'firstName lastName email phoneNumber address birthDate sex globalNote class');
   } catch (err) {
-    console.error(err.message);
+    throw new Error(err.message);
   }
 };
 
@@ -22,7 +22,7 @@ const create = async (body) => {
   try {
     return await Student.create(body);
   } catch (err) {
-    console.error(err.message);
+    throw new Error(err.message);
   }
 };
 
@@ -30,7 +30,7 @@ const update = async (studentId, body) => {
   try {
     return await Student.findByIdAndUpdate(studentId, body);
   } catch (err) {
-    console.error(err.message);
+    throw new Error(err.message);
   }
 };
 
@@ -38,7 +38,7 @@ const remove = async (studentId) => {
   try {
     await Student.findByIdAndRemove(studentId);
   } catch (err) {
-    console.error(err.message);
+    throw new Error(err.message);
   }
 };
 

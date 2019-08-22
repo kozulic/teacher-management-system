@@ -19,15 +19,14 @@ const create = async (body) => {
     registeredTeacher = registeredTeacher.toObject();
     delete registeredTeacher.password;
 
-    const token = jwt.sign({ id: registeredTeacher._id }, process.env.SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: registeredTeacher._id }, process.env.SECRET, { expiresIn: '16h' });
 
     return {
       teacher: registeredTeacher,
       token
     };
   } catch (err) {
-    console.error(err.message);
-    return err.message;
+    throw new Error(err.message);
   }
 };
 
@@ -50,8 +49,7 @@ const auth = async (body) => {
       token
     };
   } catch (err) {
-    console.error(err.message);
-    return err;
+    throw new Error(err.message);
   }
 };
 
@@ -63,7 +61,7 @@ const info = async (teacherId) => {
     }
     return teacher;
   } catch (err) {
-    console.error(err.message);
+    throw new Error(err.message);
   }
 };
 

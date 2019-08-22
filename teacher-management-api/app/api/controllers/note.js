@@ -5,17 +5,25 @@ const getAll = async (req, res) => {
     const notes = await noteService.getAll(req.params.studentId);
     res.json(notes);
   } catch (err) {
-    console.error(err.message);
     res.status(400).json({error: err.message});
   }
 };
+
+const get = async (req, res) => {
+  try {
+    const result = await noteService.get(req.params.id);
+    res.json(result);
+  } catch (err) {
+    res.status(400).json({error: err.message});
+  }
+};
+
 
 const create = async (req, res) => {
   try {
     const result = await noteService.create(req.body);
     res.json(result);
   } catch (err) {
-    console.error(err.message);
     res.status(400).json({error: err.message});
   }
 };
@@ -25,7 +33,6 @@ const update = async (req, res) => {
     const result = await noteService.update(req.params.id, req.body);
     res.json(result);
   } catch (err) {
-    console.error(err.message);
     res.status(400).json({error: err.message});
   }
 };
@@ -35,13 +42,13 @@ const remove = async (req, res) => {
     await noteService.remove(req.params.id);
     res.json({message: 'Note removed!'});
   } catch (err) {
-    console.error(err.message);
     res.status(400).json({error: err.message});
   }
 };
 
 module.exports = {
   getAll,
+  get,
   create,
   update,
   remove
